@@ -250,6 +250,11 @@ namespace FSecure
 		friend inline bool operator==(ByteVector const& lhs, ByteVector const& rhs);
 		friend inline bool operator!=(ByteVector const& lhs, ByteVector const& rhs);
 
+		// Some versions of msvc generate false positive unreached code warning
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4702)
+#endif
 		/// Write content of of provided objects.
 		/// Supports arithmetic types, and basic iterable types.
 		/// Include ByteConverter.h to add support for common types like enum, std::tuple and others.
@@ -264,6 +269,9 @@ namespace FSecure
 			Store<T, Ts...>(arg, args...);
 			return *this;
 		}
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 		/// Write content of of provided objects.
 		/// Supports ByteView and ByteVector.
