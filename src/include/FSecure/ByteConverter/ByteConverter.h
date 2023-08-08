@@ -350,7 +350,7 @@ namespace FSecure
 			template <typename T>
 			concept Constructible = requires(ByteView bv)
 			{
-				{ make_from_tuple<T>(TupleHandler<T>::Read(bv)) } -> std::same_as<T>;
+			  { std::make_from_tuple<T>(TupleHandler<T>::Read(bv)) } -> std::same_as<T>;
 			};
 
 			/// Desired type can be transformed form tuple.
@@ -387,7 +387,7 @@ namespace FSecure
 		/// For example C++ allows cast from pair to tuple of two, but not other way around.
 		/// If type cannot be converted, function will use tuple members to initialize new object.
 		///
-		/// @note make_from_tuple requires constructor.
+		/// @note std::make_from_tuple requires constructor.
 		/// If author specified tuple-like interface for their class, it is safe to assume constructor is also present.
 		/// This less restrictive form might be used if the assumption above turns out to be incorrect.
 		/// return apply(Utils::Construction::Braces<T>{}, std::move(tmp));
@@ -397,7 +397,7 @@ namespace FSecure
 			if constexpr (std::is_convertible_v<decltype(tmp), T>)
 				return tmp;
 			else
-				return make_from_tuple<T>(std::move(tmp));
+				return std::make_from_tuple<T>(std::move(tmp));
 		}
 	};
 
