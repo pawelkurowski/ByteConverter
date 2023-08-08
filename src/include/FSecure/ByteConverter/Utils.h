@@ -42,7 +42,12 @@ namespace FSecure::Utils
 	/// @param n number of bytes to overwrite.
 	inline void* SecureMemzero(void* ptr, size_t n)
 	{
-		if (ptr) for (auto p = reinterpret_cast<volatile char*>(ptr); n--; *p++ = 0);
+		if (!ptr)
+			return nullptr;
+
+		for (auto p = reinterpret_cast<volatile char*>(ptr); n--;)
+			*p++ = 0;
+
 		return ptr;
 	}
 

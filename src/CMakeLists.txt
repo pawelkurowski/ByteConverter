@@ -9,6 +9,11 @@ target_include_directories(${PROJECT_NAME} INTERFACE
 )
 
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
+if(MSVC)
+    target_compile_options(${PROJECT_NAME} INTERFACE /W4 /WX)
+else()
+    target_compile_options(${PROJECT_NAME} INTERFACE -Wall -Wextra -Wpedantic -Werror -Wno-missing-braces)
+endif()
 
 include(GNUInstallDirs)
 install(TARGETS ${PROJECT_NAME})

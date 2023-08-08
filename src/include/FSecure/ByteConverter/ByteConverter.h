@@ -351,8 +351,9 @@ namespace FSecure
 	/// ByteVector can declare its own versions of To/From/Size methods if it needs dedicated logic to serialize type.
 	/// @tparam T Type for serialization.
 	template <typename T>
-	class TupleConverter
+	struct TupleConverter
 	{
+	private:
 		/// @brief Type returned by ByteConverter<C>::Convert.
 		/// ByteConverter<C> specialization may not yet be defined.
 		/// This type must be deduced late in instantiation procedure.
