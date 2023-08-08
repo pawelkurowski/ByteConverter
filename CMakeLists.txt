@@ -2,15 +2,9 @@ cmake_minimum_required (VERSION 3.16)
 
 project (ByteConverter)
 
-option(ByteConverterBuildTests "Build unit tests" ON)
+add_subdirectory("src")
+add_subdirectory("example")
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
+include(CTest)
+add_subdirectory ("test")
 
-add_subdirectory ("src")
-
-## TESTS
-if(ByteConverterBuildTests)
-	include(CTest)
-	add_subdirectory ("test")
-endif()
