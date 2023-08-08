@@ -8,28 +8,6 @@ To add ByteConverter to a new project, copy the directory `src/include/FSecure/B
 
 This project can be used on Linux and Windows. It is compatible with three major compilers: MSVC, GCC and Clang.
 
-## Conan
-
-The code is available as a Conan package. Conan is also used for unit tests, to pull the `Catch2` dependency, if the `build_tests` flag is set.
-
-Example of building and running unit tests:
-```
-conan install . -if out/build/Debug -s build_type=Debug -o build_tests=True
-cmake -G Ninja -S . -B out/build/Debug
-cmake --build out/build/Debug --config Debug
-./out/build/Debug/bin/UnitTest -d yes
-```
-
-Generating and testing the conan package by running an example file depending on ByteConverter:
-```
-set CONAN_CMAKE_GENERATOR=Ninja
-conan install . -if out/build/
-conan build . --build-folder=out/build/
-conan package . --build-folder=out/build/ --package-folder=out/package
-conan export-pkg . ByteConverter/0.0.1@test/test --build-folder=out/build/
-conan test test_package ByteConverter/0.0.1@test/test
-```
-
 ## C++20
 
 ByteConverter was first developed and released alongside [C3](https://github.com/FSecureLABS/C3) using the C++17 standard. It utilizes [SFINAE](https://en.cppreference.com/w/cpp/language/sfinae) to detect the correct converter to be applied. C++20's introduction of concepts allows for more direct specification of requirements on template types and functions. As a result, we've been able to replace detection tricks with syntax designed to perform compile time validation, which in turn should reduce the time and resources required during building. Switch to the `cpp20` branch if your project including ByteConverter is already using the current standard, in order to make the most of this.
